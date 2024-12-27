@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 const simpleGit = require('simple-git');
+const path = require('path'); // Add this line at the top if not already present
 
 const app = express();
 const PORT = 3000;
@@ -19,6 +20,12 @@ const DATA_FOLDER = './data';
 if (!fs.existsSync(DATA_FOLDER)) {
   fs.mkdirSync(DATA_FOLDER);
 }
+
+// Serve the index.html file
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 
 // Endpoint to save user data
 app.post('/saveUser', (req, res) => {
